@@ -19,6 +19,22 @@ class _FormScreenState extends State<FormScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  bool validatorValue(String? value) {
+    if (value != null && value.isEmpty) {
+      return true;
+    }
+    return false;
+  }
+
+  bool validatorDifficulty(String? value) {
+    if (value != null && value.isEmpty) {
+      if (int.parse(value) > 5 || int.parse(value) < 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -50,7 +66,7 @@ class _FormScreenState extends State<FormScreen> {
                   child: TextFormField(
                     controller: nomeController,
                     validator: (value) {
-                      if (value != null && value.isEmpty) {
+                      if (validatorValue(value)) {
                         return 'Insira um nome';
                       }
                       return null;
@@ -70,9 +86,7 @@ class _FormScreenState extends State<FormScreen> {
                     keyboardType: TextInputType.number,
                     controller: dificuldadeController,
                     validator: (value) {
-                      if (value!.isEmpty ||
-                          int.parse(value) > 5 ||
-                          int.parse(value) < 1) {
+                      if (validatorDifficulty(value)) {
                         return 'Insira um número entre 1 e 5';
                       }
                       return null;
@@ -94,7 +108,7 @@ class _FormScreenState extends State<FormScreen> {
                     },
                     controller: imageController,
                     validator: (value) {
-                      if (value != null && value.isEmpty) {
+                      if (validatorValue(value)) {
                         return 'Insira uma URL válida';
                       }
                       return null;

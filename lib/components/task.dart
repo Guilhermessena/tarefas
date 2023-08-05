@@ -6,14 +6,15 @@ class Task extends StatefulWidget {
   final int dificuldade;
   final String imagem;
 
-  const Task(this.nome, this.dificuldade, this.imagem, {super.key});
+  Task(this.nome, this.dificuldade, this.imagem, {super.key});
+
+  int value = 0;
 
   @override
   State<Task> createState() => _TaskState();
 }
 
 class _TaskState extends State<Task> {
-  int value = 0;
   bool imageOrNetwork() {
     if (widget.imagem.contains('http')) {
       return true;
@@ -32,13 +33,13 @@ class _TaskState extends State<Task> {
             width: double.infinity,
             height: 140,
             decoration: BoxDecoration(
-              color: value == 0
+              color: widget.value == 0
                   ? Colors.blue
-                  : (value / widget.dificuldade) / 10 >= 1
+                  : (widget.value / widget.dificuldade) / 10 >= 1
                       ? Colors.green
-                      : (value / widget.dificuldade) / 10 >= 1 / 2
+                      : (widget.value / widget.dificuldade) / 10 >= 1 / 2
                           ? Colors.yellow
-                          : (value / widget.dificuldade) / 10 >= 1 / 4
+                          : (widget.value / widget.dificuldade) / 10 >= 1 / 4
                               ? Colors.orange
                               : Colors.blue,
               borderRadius: BorderRadius.circular(4),
@@ -92,7 +93,7 @@ class _TaskState extends State<Task> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          value++;
+                          widget.value++;
                         });
                       },
                       child: const SizedBox(
@@ -125,12 +126,12 @@ class _TaskState extends State<Task> {
                       child: LinearProgressIndicator(
                         value: widget.dificuldade == 0
                             ? 1
-                            : (value / widget.dificuldade) / 10,
+                            : (widget.value / widget.dificuldade) / 10,
                         color: Colors.white,
                       ),
                     ),
                     Text(
-                      'Nivel $value',
+                      'Nivel ${widget.value}',
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white,
