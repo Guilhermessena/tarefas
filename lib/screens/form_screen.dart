@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nosso_primeiro_projeto/data/task_inherited.dart';
+import 'package:nosso_primeiro_projeto/components/task.dart';
+import 'package:nosso_primeiro_projeto/data/task_dao.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({
@@ -146,11 +147,10 @@ class _FormScreenState extends State<FormScreen> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      TaskInherited.of(widget.context).newItem(
-                        nomeController.text,
-                        int.parse(dificuldadeController.text),
-                        imageController.text,
-                      );
+                      TaskDao().save(Task(
+                          nomeController.text,
+                          int.parse(dificuldadeController.text),
+                          imageController.text));
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Criado com sucesso'),
