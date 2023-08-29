@@ -48,7 +48,6 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
                 );
-                break;
               case ConnectionState.waiting:
                 return const Center(
                   child: Column(
@@ -58,7 +57,6 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
                 );
-                break;
               case ConnectionState.none:
                 return const Center(
                   child: Column(
@@ -68,7 +66,6 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
                 );
-                break;
               case ConnectionState.done:
                 if (snapshot.hasData && items != null) {
                   if (items.isNotEmpty) {
@@ -97,9 +94,7 @@ class _DashboardState extends State<Dashboard> {
                   );
                 }
                 return const Text('Erro ao carregar tarefas!');
-                break;
             }
-            return const Text('Erro desconhecido');
           },
         ),
       ),
@@ -111,7 +106,9 @@ class _DashboardState extends State<Dashboard> {
             MaterialPageRoute(
               builder: (newContext) => FormScreen(context: context),
             ),
-          ).then((value) => setState(() {}));
+          ).then((value) => setState(() {
+                print('Recarregando a tela inicial');
+              }));
         },
       ),
     );
